@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#10172d">
+  <title>Moonlight Room — Ngủ ngoan nhé</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+
+:root{
+  --night:#0b1021; --wall:#171d35; --warm:#ffdca0; --cream:#fff6df;
+  --purple:#a9b4e8; --shadow:rgba(0,0,0,.42);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:"Be Vietnam Pro",sans-serif;background:#070b17;color:#fff}
+button{font:inherit}
+.room{
+  position:relative;width:100vw;height:100dvh;overflow:hidden;
+  background:linear-gradient(180deg,#0e1429 0%,#161b31 55%,#0d1122 100%);
+  isolation:isolate;
+}
+.grain{position:absolute;inset:-50%;z-index:50;opacity:.055;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  animation:grain .22s steps(2) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(2%,-1%)}50%{transform:translate(-1%,2%)}75%{transform:translate(1%,1%)}100%{transform:translate(-2%,-2%)}}
+.moonlight{position:absolute;width:55vw;height:45vw;max-width:760px;max-height:620px;right:8%;top:8%;border-radius:50%;
+ background:radial-gradient(circle,rgba(176,195,255,.12),transparent 68%);filter:blur(12px);pointer-events:none}
+.wall-light{position:absolute;width:32vw;height:28vw;left:18%;bottom:13%;border-radius:50%;
+ background:radial-gradient(circle,rgba(255,210,139,.11),transparent 67%);filter:blur(18px);opacity:0;transition:opacity .8s}
+.room.lamp-on .wall-light{opacity:1}
+
+.window{position:absolute;z-index:4;width:min(47vw,680px);height:min(56vh,590px);min-width:310px;left:50%;top:8%;
+ transform:translateX(-50%);border:12px solid #222944;border-radius:8px 8px 5px 5px;box-shadow:0 22px 60px rgba(0,0,0,.4),inset 0 0 0 3px #0b1020;overflow:hidden}
+.sky{position:absolute;inset:0;background:linear-gradient(#111a3c,#263a68 58%,#151d39);overflow:hidden}
+.window-frame{position:absolute;background:#202944;z-index:8;box-shadow:0 0 0 2px rgba(0,0,0,.12)}
+.window-frame.v{width:8px;height:100%;left:50%;transform:translateX(-50%)}
+.window-frame.h{height:8px;width:100%;top:52%}
+.moon{position:absolute;width:118px;height:118px;border-radius:50%;right:15%;top:15%;
+ background:radial-gradient(circle at 35% 30%,#fffdf2,#e9e7ce 62%,#c6c9bd);box-shadow:0 0 35px rgba(232,236,218,.38),0 0 90px rgba(188,205,255,.14)}
+.moon:after{content:"";position:absolute;width:22px;height:12px;border-radius:50%;background:#c9cbbb;left:27px;top:40px;opacity:.4;box-shadow:38px 25px 0 5px #d1d1c3,-8px 34px 0 1px #c3c5b8}
+.cloud{position:absolute;width:220px;height:36px;border-radius:50%;background:rgba(174,193,228,.10);filter:blur(5px);left:-240px}
+.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud:before{width:80px;height:60px;left:45px;top:-27px}.cloud:after{width:110px;height:70px;left:105px;top:-36px}
+.cloud-a{top:35%;animation:cloud 34s linear infinite}.cloud-b{top:65%;transform:scale(.65);animation:cloud 47s linear infinite reverse}
+@keyframes cloud{to{left:110%}}
+.stars{position:absolute;inset:0}.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#f6f3da;opacity:.55;animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{50%{opacity:.12;transform:scale(.6)}}
+
+.curtain{position:absolute;z-index:10;top:-2%;width:31%;height:104%;border:0;padding:0;
+ background:linear-gradient(90deg,#4b4261,#302d49 45%,#211f37);box-shadow:0 8px 30px rgba(0,0,0,.45);cursor:pointer;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.curtain:after{content:"";position:absolute;inset:0;opacity:.16;background:repeating-linear-gradient(90deg,transparent 0 18px,#fff 20px 23px,transparent 25px 42px)}
+.curtain-left{left:-2%;transform:translateX(0);border-radius:0 0 45% 0}.curtain-right{right:-2%;transform:translateX(0);border-radius:0 0 0 45%}
+.room.open-curtains .curtain-left{transform:translateX(-82%)}.room.open-curtains .curtain-right{transform:translateX(82%)}
+.glass-shine{position:absolute;inset:0;z-index:7;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.05),transparent 28%,transparent 72%,rgba(255,255,255,.03))}
+
+.bed{position:absolute;z-index:9;left:8%;bottom:11%;width:min(65vw,850px);height:31vh;min-height:220px}
+.headboard{position:absolute;left:5%;bottom:16%;width:90%;height:56%;background:linear-gradient(180deg,#313650,#222740);border-radius:28px 28px 12px 12px;box-shadow:0 20px 40px var(--shadow)}
+.blanket{position:absolute;left:8%;bottom:7%;width:82%;height:56%;border-radius:30px 55px 25px 25px;background:linear-gradient(155deg,#8994c2,#68739e 55%,#4b557e);box-shadow:0 22px 35px rgba(0,0,0,.38);overflow:hidden}
+.blanket-fold{position:absolute;right:-3%;top:5%;width:38%;height:95%;border-radius:50%;background:rgba(255,255,255,.08);transform:rotate(7deg)}
+.blanket-shine{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.13),transparent 35%);opacity:.6}
+.pillow{position:absolute;z-index:3;bottom:51%;width:31%;height:27%;border-radius:45%;background:linear-gradient(145deg,#ddd9d0,#a9abc1);box-shadow:0 12px 18px rgba(0,0,0,.2)}
+.pillow-a{left:14%;transform:rotate(-4deg)}.pillow-b{left:43%;transform:rotate(5deg)}
+.bed-leg{position:absolute;bottom:0;width:13px;height:22%;background:#202334;border-radius:0 0 5px 5px}.leg-a{left:14%}.leg-b{right:14%}
+
+.nightstand{position:absolute;z-index:12;right:9%;bottom:14%;width:160px;height:190px;background:linear-gradient(90deg,#272a3b,#373a50);border-radius:10px;box-shadow:0 24px 35px rgba(0,0,0,.4)}
+.nightstand:before{content:"";position:absolute;left:-8px;right:-8px;top:-8px;height:13px;border-radius:7px;background:#41445a}
+.drawer{position:absolute;left:15px;right:15px;top:75px;height:42px;border:2px solid #202334;border-radius:7px;background:#303348}.drawer:after{content:"";position:absolute;width:25px;height:3px;border-radius:5px;background:#70738a;left:50%;top:50%;transform:translate(-50%,-50%)}
+.lamp{position:absolute;z-index:15;left:30px;top:-100px;width:95px;height:170px;cursor:pointer}
+.lamp-shade{position:absolute;top:0;left:4px;width:87px;height:65px;background:linear-gradient(#e8c98f,#ad8c5b);clip-path:polygon(12% 0,88% 0,100% 100%,0 100%);border-radius:8px;filter:brightness(.68);transition:filter .6s}
+.lamp-stem{position:absolute;top:61px;left:46px;width:6px;height:70px;background:#8b6c4b}.lamp-base{position:absolute;bottom:0;left:22px;width:53px;height:14px;border-radius:50%;background:#8b6c4b}
+.lamp-glow{position:absolute;z-index:-1;left:-70px;top:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,208,125,.52),rgba(255,186,86,.14) 38%,transparent 70%);opacity:0;transition:opacity .7s;filter:blur(8px)}
+.room.lamp-on .lamp-glow{opacity:1}.room.lamp-on .lamp-shade{filter:brightness(1.08);box-shadow:0 0 18px rgba(255,208,125,.5)}
+.book{position:absolute;bottom:22px;right:22px;width:65px;height:10px;background:#77728a;transform:rotate(-4deg);border-radius:2px}.cup{position:absolute;bottom:42px;left:18px;width:24px;height:22px;border:3px solid #9d8e91;border-top:0;border-radius:0 0 8px 8px}
+
+.rug{position:absolute;z-index:3;left:20%;bottom:-8%;width:62%;height:20%;border-radius:50%;background:rgba(97,93,125,.28);filter:blur(1px)}
+.plant{position:absolute;z-index:10;left:4%;bottom:7%;width:125px;height:250px}
+.pot{position:absolute;bottom:0;left:31px;width:65px;height:72px;background:linear-gradient(90deg,#66515a,#8a6d6d);clip-path:polygon(7% 0,93% 0,80% 100%,20% 100%);border-radius:0 0 18px 18px}
+.leaf{position:absolute;width:26px;height:100px;background:linear-gradient(90deg,#526c65,#78917b);border-radius:100% 0 100% 0;transform-origin:bottom center}
+.leaf-1{left:47px;bottom:57px;transform:rotate(-35deg)}.leaf-2{left:66px;bottom:61px;transform:rotate(28deg)}.leaf-3{left:39px;bottom:74px;transform:rotate(-7deg)}.leaf-4{left:75px;bottom:71px;transform:rotate(48deg)}.leaf-5{left:57px;bottom:79px;transform:rotate(12deg)}
+
+.dust{position:absolute;inset:0;z-index:20;pointer-events:none}.dust i{position:absolute;width:3px;height:3px;border-radius:50%;background:#ffeac2;opacity:.0;animation:floatDust 6s ease-in-out infinite}
+@keyframes floatDust{0%{opacity:0;transform:translate(0,20px)}25%{opacity:.45}70%{opacity:.12}100%{opacity:0;transform:translate(35px,-90px)}}
+
+.note{position:absolute;z-index:30;right:7%;top:21%;width:min(330px,30vw);transform:translateY(25px) rotate(1.5deg);opacity:0;pointer-events:none;transition:.8s cubic-bezier(.2,.8,.2,1)}
+.note.show{opacity:1;transform:translateY(0) rotate(1.5deg);pointer-events:auto}
+.note-paper{padding:30px 28px 25px;background:#f4e8c9;color:#33302d;box-shadow:0 22px 45px rgba(0,0,0,.4);clip-path:polygon(1% 1%,98% 0,100% 97%,3% 100%,0 52%)}
+.note-pin{position:absolute;z-index:2;top:-10px;left:50%;width:14px;height:14px;border-radius:50%;background:#a75e65;box-shadow:0 2px 4px #333;transform:translateX(-50%)}
+.note-small{font-size:9px;letter-spacing:2px;opacity:.5}.note h1{font-family:"DM Serif Display",serif;font-size:34px;font-weight:400;margin:14px 0 10px}.note p{font-size:13px;line-height:1.8;margin:10px 0}.note .warm{color:#765b45}.signature{display:block;margin-top:18px;font-size:10px;opacity:.58;font-style:italic}
+
+.intro{position:absolute;z-index:40;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;width:min(520px,90vw);transition:opacity .8s,transform .8s}
+.intro.hide{opacity:0;transform:translate(-50%,-45%);pointer-events:none}
+.intro-kicker{font-size:10px;letter-spacing:5px;opacity:.58;margin-bottom:12px}.intro h2{font-family:"DM Serif Display",serif;font-size:clamp(48px,8vw,84px);font-weight:400;margin:0;text-shadow:0 10px 35px rgba(0,0,0,.4)}.intro p{font-size:13px;color:#c6cbe1;margin:10px 0 24px}
+.intro button{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:white;border-radius:999px;padding:12px 22px;cursor:pointer;backdrop-filter:blur(10px);transition:.25s}.intro button:hover{background:rgba(255,255,255,.15);transform:translateY(-2px)}
+
+.controls{position:absolute;z-index:45;left:50%;bottom:24px;transform:translateX(-50%);display:flex;gap:9px;padding:7px;border-radius:999px;background:rgba(12,16,33,.62);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(12px)}
+.control{width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.07);color:#dfe3f4;cursor:pointer;transition:.2s}.control:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}.control.active{background:rgba(255,211,143,.2);color:#ffe0a5}
+.toast{position:absolute;z-index:60;left:50%;bottom:90px;transform:translate(-50%,10px);opacity:0;padding:9px 14px;border-radius:999px;background:rgba(12,16,30,.78);font-size:11px;transition:.3s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}
+.sleep-overlay{position:absolute;z-index:70;inset:0;background:rgba(4,7,17,.72);backdrop-filter:blur(5px);display:grid;place-items:center;opacity:0;pointer-events:none;transition:1.2s}.sleep-overlay.show{opacity:1;pointer-events:auto}.sleep-card{text-align:center;color:#eeeaf0;font-family:"DM Serif Display",serif;font-size:20px}.sleep-card strong{display:block;font-size:42px;font-weight:400;margin-top:8px}.tiny-moon{font-size:44px;color:#ffe5ac;margin-bottom:12px}
+
+@media(max-width:800px){
+ .window{top:7%;width:86vw;height:42vh;min-width:0}
+ .moon{width:78px;height:78px}
+ .bed{left:-7%;bottom:14%;width:96vw;height:29vh}.nightstand{right:3%;bottom:19%;transform:scale(.7);transform-origin:bottom right}.plant{transform:scale(.72);transform-origin:bottom left;left:0}
+ .note{top:16%;right:4%;width:76vw;max-width:330px}.note h1{font-size:29px}
+ .intro h2{font-size:54px}.intro p{font-size:12px}
+ .controls{bottom:13px}
+}
+@media(max-height:650px){
+ .window{height:48vh}.bed{bottom:7%;height:34vh}.nightstand{bottom:9%}.plant{bottom:2%}.note{top:10%}
+}
+
+</style>
+</head>
+<body>
+  <audio id="bgMusic" src="lep.mp3" loop preload="auto"></audio>
+  <main class="room" id="room">
+    <div class="grain"></div>
+    <div class="moonlight"></div>
+
+    <section class="window" aria-label="Cửa sổ">
+      <div class="sky">
+        <div class="moon"></div>
+        <div class="cloud cloud-a"></div>
+        <div class="cloud cloud-b"></div>
+        <div class="stars" id="stars"></div>
+      </div>
+      <div class="window-frame v"></div>
+      <div class="window-frame h"></div>
+      <button class="curtain curtain-left" id="curtainLeft" aria-label="Kéo rèm trái"></button>
+      <button class="curtain curtain-right" id="curtainRight" aria-label="Kéo rèm phải"></button>
+      <div class="glass-shine"></div>
+    </section>
+
+    <div class="wall-light"></div>
+
+    <section class="bed" aria-label="Giường">
+      <div class="headboard"></div>
+      <div class="pillow pillow-a"></div>
+      <div class="pillow pillow-b"></div>
+      <div class="blanket">
+        <div class="blanket-fold"></div>
+        <div class="blanket-shine"></div>
+      </div>
+      <div class="bed-leg leg-a"></div><div class="bed-leg leg-b"></div>
+    </section>
+
+    <div class="nightstand">
+      <div class="drawer"></div>
+      <div class="lamp" id="lamp" role="button" tabindex="0" aria-label="Bật tắt đèn ngủ">
+        <div class="lamp-glow"></div>
+        <div class="lamp-shade"></div>
+        <div class="lamp-stem"></div>
+        <div class="lamp-base"></div>
+      </div>
+      <div class="book"></div>
+      <div class="cup"></div>
+    </div>
+
+    <div class="rug"></div>
+    <div class="plant">
+      <div class="pot"></div>
+      <div class="leaf leaf-1"></div><div class="leaf leaf-2"></div>
+      <div class="leaf leaf-3"></div><div class="leaf leaf-4"></div>
+      <div class="leaf leaf-5"></div>
+    </div>
+
+    <div class="dust" id="dust"></div>
+
+    <div class="note" id="note">
+      <div class="note-pin"></div>
+      <div class="note-paper">
+        <span class="note-small">00:00 • MOONLIGHT ROOM</span>
+        <h1>Vy ơiii</h1>
+        <p>Hôm nay tới đây thôi nha.<br>
+        Cất hết những chuyện còn dang dở sang ngày mai.</p>
+        <p class="warm">Kéo chăn lên, nằm thật thoải mái<br>
+        rồi ngủ ngoannn iuuu 🌙</p>
+        <span class="signature">— một lời chúc nhỏ dành cho Vy trước khi đêm kết thúc</span>
+      </div>
+    </div>
+
+    <div class="intro" id="intro">
+      <div class="intro-kicker">MIDNIGHT • 00:00</div>
+      <h2>Moonlight Room</h2>
+      <p>Một căn phòng nhỏ dành riêng cho giờ đi ngủ.</p>
+      <button id="enter">Bước vào phòng</button>
+    </div>
+
+    <div class="controls">
+      <button id="lampBtn" class="control" aria-label="Đèn">☼</button>
+      <button id="noteBtn" class="control" aria-label="Lời chúc">✦</button>
+      <button id="soundBtn" class="control" aria-label="Âm thanh">♫</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <div class="sleep-overlay" id="sleepOverlay">
+      <div class="sleep-card">
+        <div class="tiny-moon">☾</div>
+        <div>Đêm nay cứ để mọi thứ ở đây.</div>
+        <strong>Ngủ ngoan nhé.</strong>
+      </div>
+    </div>
+  </main>
+  <script>
+const room = document.getElementById("room");
+const intro = document.getElementById("intro");
+const enter = document.getElementById("enter");
+const lamp = document.getElementById("lamp");
+const lampBtn = document.getElementById("lampBtn");
+const note = document.getElementById("note");
+const noteBtn = document.getElementById("noteBtn");
+const soundBtn = document.getElementById("soundBtn");
+const toast = document.getElementById("toast");
+const curtainLeft = document.getElementById("curtainLeft");
+const curtainRight = document.getElementById("curtainRight");
+const dust = document.getElementById("dust");
+const sleepOverlay = document.getElementById("sleepOverlay");
+const stars = document.getElementById("stars");
+
+let audioCtx = null, ambience = null, audioOn = false;
+const bgMusic = document.getElementById("bgMusic");
+
+function makeStars(){
+  for(let i=0;i<55;i++){
+    const s=document.createElement("i");
+    s.className="star";
+    s.style.left=Math.random()*100+"%";
+    s.style.top=Math.random()*85+"%";
+    s.style.opacity=(.2+Math.random()*.65).toFixed(2);
+    s.style.animationDelay=(Math.random()*4).toFixed(2)+"s";
+    s.style.animationDuration=(2+Math.random()*4).toFixed(2)+"s";
+    stars.appendChild(s);
+  }
+}
+function makeDust(){
+  for(let i=0;i<30;i++){
+    const d=document.createElement("i");
+    d.style.left=(5+Math.random()*90)+"%";
+    d.style.top=(25+Math.random()*65)+"%";
+    d.style.animationDelay=(Math.random()*6)+"s";
+    d.style.animationDuration=(4+Math.random()*5)+"s";
+    dust.appendChild(d);
+  }
+}
+makeStars(); makeDust();
+
+function showToast(msg){
+  toast.textContent=msg; toast.classList.add("show");
+  clearTimeout(showToast.t); showToast.t=setTimeout(()=>toast.classList.remove("show"),1900);
+}
+
+function toggleLamp(){
+  room.classList.toggle("lamp-on");
+  lampBtn.classList.toggle("active",room.classList.contains("lamp-on"));
+  showToast(room.classList.contains("lamp-on")?"Đèn ngủ sáng lên rồi ✦":"Để trăng soi phòng nhé 🌙");
+}
+lamp.addEventListener("click",toggleLamp);
+lamp.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")toggleLamp()});
+lampBtn.addEventListener("click",toggleLamp);
+
+function toggleCurtains(){
+  room.classList.toggle("open-curtains");
+  showToast(room.classList.contains("open-curtains")?"Kéo rèm ra, nhìn trăng một chút 🌙":"Khép rèm lại cho căn phòng yên hơn.");
+}
+curtainLeft.addEventListener("click",toggleCurtains);
+curtainRight.addEventListener("click",toggleCurtains);
+
+function toggleNote(){
+  note.classList.toggle("show");
+  noteBtn.classList.toggle("active",note.classList.contains("show"));
+}
+noteBtn.addEventListener("click",toggleNote);
+
+enter.addEventListener("click",()=>{
+  intro.classList.add("hide");
+  setTimeout(()=>{room.classList.add("open-curtains"); showToast("Chào mừng vào căn phòng lúc nửa đêm 🌙")},500);
+});
+
+async function startAmbience(){
+  try{
+    await bgMusic.play();
+    audioOn=true;
+    soundBtn.classList.add("active");
+    showToast("Lép đang phát ♪");
+  }catch(e){
+    showToast("Thêm file assets/sounds/lep.mp3 để phát nhạc.");
+  }
+}
+function stopAmbience(){
+  bgMusic.pause();
+  audioOn=false;
+  soundBtn.classList.remove("active");
+  showToast("Đã tắt nhạc.");
+}
+soundBtn.addEventListener("click",()=>audioOn?stopAmbience():startAmbience());
+
+let idleTimer;
+function idle(){
+  clearTimeout(idleTimer);
+  idleTimer=setTimeout(()=>{
+    if(!note.classList.contains("show") && !intro.classList.contains("hide")){
+      return;
+    }
+    sleepOverlay.classList.add("show");
+    setTimeout(()=>sleepOverlay.classList.remove("show"),5200);
+  }, 30000);
+}
+["pointermove","pointerdown","touchstart","keydown"].forEach(e=>window.addEventListener(e,idle,{passive:true}));
+idle();
+
+document.addEventListener("dblclick",e=>{
+  if(e.target.closest(".controls,.intro,.note")) return;
+  room.classList.toggle("lamp-on");
+  lampBtn.classList.toggle("active",room.classList.contains("lamp-on"));
+});
+
+</script>
+</body>
+</html>
